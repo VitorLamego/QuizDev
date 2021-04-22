@@ -1,7 +1,7 @@
-import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
 import 'package:DevQuiz/home/home_controller.dart';
 import 'package:DevQuiz/home/widgets/appbar/appbar_widget.dart';
 import 'package:DevQuiz/home/widgets/level_button/level_button_widget.dart';
+import 'package:DevQuiz/home/widgets/quiz_card/quiz_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +13,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = HomeController();
+
+  @override
+  void initState() {
+    controller.getUser();
+    controller.getQuizzes();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +45,11 @@ class _HomePageState extends State<HomePage> {
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
                 children: controller.quizzes!
-                    .map((quiz) => QuizWidget(title: quiz.title))
+                    .map((quiz) => QuizCardWidget(
+                        title: quiz.title,
+                        picture: quiz.image,
+                        progress:
+                            "${quiz.questionsAnswered} de ${quiz.questions.length}"))
                     .toList(),
               ),
             )
