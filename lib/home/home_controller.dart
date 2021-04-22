@@ -20,7 +20,7 @@ class HomeController {
   void getQuizzes() {
     quizzes = [
       QuizModel(
-          title: "Princípios Básicos do Flutter",
+          title: "Básico Flutter",
           questions: [
             QuestionModel(title: "O que o Flutter faz ?", answers: [
               AnswerModel(title: "Linguagem de programação"),

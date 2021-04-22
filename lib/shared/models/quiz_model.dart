@@ -14,6 +14,5 @@ class QuizModel {
       required this.questions,
       this.questionsAnswered = 0,
       required this.image,
-      required this.level})
-      : assert(questions.length == 10);
+      required this.level});
 }
