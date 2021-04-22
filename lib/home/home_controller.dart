@@ -1,7 +1,5 @@
-import 'package:DevQuiz/core/app_images.dart';
+import 'package:DevQuiz/home/home_repository.dart';
 import 'package:DevQuiz/home/home_state.dart';
-import 'package:DevQuiz/shared/models/answer_model.dart';
-import 'package:DevQuiz/shared/models/question_model.dart';
 import 'package:DevQuiz/shared/models/quiz_model.dart';
 import 'package:DevQuiz/shared/models/user_model.dart';
 import 'package:flutter/foundation.dart';
@@ -14,12 +12,12 @@ class HomeController {
   UserModel? user;
   List<QuizModel>? quizzes;
 
+  final repository = HomeRepository();
+
   void getUser() async {
     state = HomeState.loading;
     await Future.delayed(Duration(seconds: 2));
-    user = UserModel(
-        name: "Vitor Lamego",
-        photoUrl: 'https://avatars.githubusercontent.com/u/54643464?v=4');
+    user = await repository.getUser();
     state = HomeState.succes;
   }
 
@@ -27,31 +25,7 @@ class HomeController {
     state = HomeState.loading;
 
     await Future.delayed(Duration(seconds: 2));
-    quizzes = [
-      QuizModel(
-          title: "Básico Flutter",
-          questionsAnswered: 1,
-          questions: [
-            QuestionModel(title: "O que o Flutter faz ?", answers: [
-              AnswerModel(title: "Linguagem de programação"),
-              AnswerModel(
-                  title: "Framework de desenvolvimento mobile usando Dart",
-                  isRight: true),
-              AnswerModel(title: "Nova tecnologia de machine learning"),
-              AnswerModel(title: "Framework Backend")
-            ]),
-            QuestionModel(title: "O que o Flutter faz ?", answers: [
-              AnswerModel(title: "Linguagem de programação"),
-              AnswerModel(
-                  title: "Framework de desenvolvimento mobile usando Dart",
-                  isRight: true),
-              AnswerModel(title: "Nova tecnologia de machine learning"),
-              AnswerModel(title: "Framework Backend")
-            ]),
-          ],
-          image: AppImages.blocks,
-          level: Level.facil)
-    ];
+    quizzes = await repository.getQuizzes();
     state = HomeState.succes;
   }
 }
