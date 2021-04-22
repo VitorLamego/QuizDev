@@ -13,7 +13,7 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-        name: map['name'], photoUrl: map['photoUrl'], score: map['socre']);
+        name: map['name'], photoUrl: map['photoUrl'], score: map['score']);
   }
 
   String toJson() => json.encode(toMap());

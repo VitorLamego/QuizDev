@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:DevQuiz/core/core.dart';
 import 'package:DevQuiz/shared/models/question_model.dart';
 
 enum Level { facil, medio, dificil, perito }
@@ -51,8 +52,8 @@ class QuizModel {
       title: map['title'],
       questions: List<QuestionModel>.from(
           map['questions']?.map((x) => QuestionModel.fromMap(x))),
-      questionsAnswered: map['questionsAnswered'],
-      image: map['image'],
+      questionsAnswered: map['questionsAnswered'] ?? 0,
+      image: AppImages.blocks,
       level: map['level'].toString().parse,
     );
   }
