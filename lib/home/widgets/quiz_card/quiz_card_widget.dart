@@ -7,11 +7,13 @@ class QuizCardWidget extends StatelessWidget {
   final String title;
   final String picture;
   final String progress;
+  final double percentage;
 
   const QuizCardWidget(
       {required this.title,
       required this.picture,
       required this.progress,
+      required this.percentage,
       Key? key})
       : super(key: key);
 
@@ -39,7 +41,9 @@ class QuizCardWidget extends StatelessWidget {
               Expanded(
                   flex: 1,
                   child: Text(this.progress, style: AppTextStyles.body11)),
-              Expanded(flex: 1, child: ProgressIndicatorWidget(value: 0.3))
+              Expanded(
+                  flex: 1,
+                  child: ProgressIndicatorWidget(value: this.percentage))
             ],
           )
         ],
