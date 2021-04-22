@@ -13,17 +13,15 @@ class QuizWidget extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 5),
             child: Text(title, style: AppTextStyles.heading),
           ),
           SizedBox(height: 24),
           AnswerWidget(
-              isRigth: true,
-              isSelected: true,
               title:
                   "Possibilita a criação de aplicativos compliados nativamente"),
           AnswerWidget(
-              isRigth: false,
+              isRigth: true,
               isSelected: true,
               title:
                   "Possibilita a criação de aplicativos compliados nativamente"),
