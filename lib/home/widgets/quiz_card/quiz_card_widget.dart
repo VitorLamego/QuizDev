@@ -4,7 +4,16 @@ import 'package:DevQuiz/shared/widget/progress_indicator/progress_indicator_widg
 import 'package:flutter/material.dart';
 
 class QuizCardWidget extends StatelessWidget {
-  const QuizCardWidget({Key? key}) : super(key: key);
+  final String title;
+  final String picture;
+  final String progress;
+
+  const QuizCardWidget(
+      {required this.title,
+      required this.picture,
+      required this.progress,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +29,16 @@ class QuizCardWidget extends StatelessWidget {
           Container(
             height: 40,
             width: 40,
-            child: Image.asset(AppImages.blocks),
+            child: Image.asset(this.picture),
             margin: EdgeInsets.only(bottom: 11),
           ),
-          Text("Gerenciamento de Estado", style: AppTextStyles.heading15),
+          Text(this.title, style: AppTextStyles.heading15),
           SizedBox(height: 11),
           Row(
             children: [
               Expanded(
-                  flex: 1, child: Text('3 de 10', style: AppTextStyles.body11)),
+                  flex: 1,
+                  child: Text(this.progress, style: AppTextStyles.body11)),
               Expanded(flex: 1, child: ProgressIndicatorWidget(value: 0.3))
             ],
           )
