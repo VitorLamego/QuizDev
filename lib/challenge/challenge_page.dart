@@ -1,5 +1,7 @@
+import 'package:DevQuiz/challenge/widgets/next_button/next_button_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
+import 'package:DevQuiz/core/core.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
@@ -17,6 +19,22 @@ class _ChallengePageState extends State<ChallengePage> {
         child: SafeArea(top: true, child: QuestionIndicatorWidget()),
       ),
       body: QuizWidget(title: "O que o Flutter faz em sua totalidade ?"),
+      bottomNavigationBar: SafeArea(
+        bottom: true,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(
+                  child: NextButtonWidget.grey(label: 'Pular', onTap: () {})),
+              Expanded(
+                  child:
+                      NextButtonWidget.green(label: 'Confirmar', onTap: () {}))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
