@@ -1,3 +1,4 @@
+import 'package:DevQuiz/challenge/challenge_controller.dart';
 import 'package:DevQuiz/challenge/widgets/next_button/next_button_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
@@ -14,6 +15,17 @@ class ChallengePage extends StatefulWidget {
 }
 
 class _ChallengePageState extends State<ChallengePage> {
+  final controller = ChallengeController();
+  final pageController = PageController();
+
+  @override
+  void initState() {
+    pageController.addListener(() {
+      controller.currentPage = pageController.page!.toInt() + 1;
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +37,24 @@ class _ChallengePageState extends State<ChallengePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BackButton(),
-                QuestionIndicatorWidget(),
+                ValueListenableBuilder<int>(
+                  valueListenable: controller.currentPageNotifier,
+                  builder: (context, value, _) => QuestionIndicatorWidget(
+                      questionNumber: value,
+                      totalQuestions: widget.questions.length),
+                ),
               ],
             )),
       ),
-      body: QuizWidget(question: widget.questions[0]),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        controller: pageController,
+        children: [
+          ...widget.questions
+              .map((question) => QuizWidget(question: question))
+              .toList(),
+        ],
+      ),
       bottomNavigationBar: SafeArea(
         bottom: true,
         child: Padding(
@@ -38,7 +63,13 @@ class _ChallengePageState extends State<ChallengePage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Expanded(
-                  child: NextButtonWidget.grey(label: 'Pular', onTap: () {})),
+                  child: NextButtonWidget.grey(
+                      label: 'Pular',
+                      onTap: () {
+                        pageController.nextPage(
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.easeIn);
+                      })),
               Expanded(
                   child:
                       NextButtonWidget.green(label: 'Confirmar', onTap: () {}))
