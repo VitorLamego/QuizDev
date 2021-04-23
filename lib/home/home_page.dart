@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(
                                   builder: (BuildContext context) {
-                                return ChallengePage();
+                                return ChallengePage(questions: quiz.questions);
                               }));
                             },
                           ))
