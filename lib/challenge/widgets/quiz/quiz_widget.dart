@@ -3,10 +3,17 @@ import 'package:DevQuiz/core/core.dart';
 import 'package:DevQuiz/shared/models/question_model.dart';
 import 'package:flutter/material.dart';
 
-class QuizWidget extends StatelessWidget {
+class QuizWidget extends StatefulWidget {
   final QuestionModel question;
 
   const QuizWidget({required this.question, Key? key}) : super(key: key);
+
+  @override
+  _QuizWidgetState createState() => _QuizWidgetState();
+}
+
+class _QuizWidgetState extends State<QuizWidget> {
+  int indexSelected = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +22,17 @@ class QuizWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 40, 20, 5),
-            child: Text(question.title, style: AppTextStyles.heading),
+            child: Text(widget.question.title, style: AppTextStyles.heading),
           ),
           SizedBox(height: 24),
-          ...question.answers
-              .map((answer) =>
-                  AnswerWidget(title: answer.title, isRigth: answer.isRight))
-              .toList()
+          for (var i = 0; i < widget.question.answers.length; i++)
+            AnswerWidget(
+                answer: widget.question.answers[i],
+                isSelected: indexSelected == i,
+                onTap: () {
+                  indexSelected = i;
+                  setState(() {});
+                }),
         ],
       ),
     );
