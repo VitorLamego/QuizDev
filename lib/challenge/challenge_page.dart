@@ -1,7 +1,6 @@
 import 'package:DevQuiz/challenge/widgets/next_button/next_button_widget.dart';
 import 'package:DevQuiz/challenge/widgets/question_indicator/question_indicator_widget.dart';
 import 'package:DevQuiz/challenge/widgets/quiz/quiz_widget.dart';
-import 'package:DevQuiz/core/core.dart';
 import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
@@ -15,8 +14,16 @@ class _ChallengePageState extends State<ChallengePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60),
-        child: SafeArea(top: true, child: QuestionIndicatorWidget()),
+        preferredSize: Size.fromHeight(106),
+        child: SafeArea(
+            top: true,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                BackButton(),
+                QuestionIndicatorWidget(),
+              ],
+            )),
       ),
       body: QuizWidget(title: "O que o Flutter faz em sua totalidade ?"),
       bottomNavigationBar: SafeArea(
