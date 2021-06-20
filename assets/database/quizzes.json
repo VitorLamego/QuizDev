@@ -9,7 +9,7 @@
                 "title": "O que o Flutter faz ?",
                     "answers": [
                         {"title": "Linguagem de programação"},
-                        {"title": "Framework de desenvolvimento mobile utilizando Dart", "isRight": true},
+                        {"title": "Framework de desenvolvimento mobile utilizando Dart que é uma linguagem muito legal para desenvolvimento nos ambientes Framework de desenvolvimento mobile utilizando Dart que é uma linguagem muito legal para desenvolvimento nos ambientes", "isRight": true},
                         {"title": "Nova tecnologia de machine learning"},
                         {"title": "Backend Framework"}
                     ]
