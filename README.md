@@ -1,4 +1,4 @@
-# quiz_dev
+# Quiz Dev - Flutter
 
 A new Flutter project.
 
