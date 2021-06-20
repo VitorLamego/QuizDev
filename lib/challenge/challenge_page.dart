@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 
 class ChallengePage extends StatefulWidget {
   final List<QuestionModel> questions;
+  final String title;
 
-  const ChallengePage({required this.questions, Key? key}) : super(key: key);
+  const ChallengePage({required this.questions, required this.title, Key? key})
+      : super(key: key);
 
   @override
   _ChallengePageState createState() => _ChallengePageState();
@@ -30,7 +32,12 @@ class _ChallengePageState extends State<ChallengePage> {
   void nextPage() {
     if (controller.currentPage < widget.questions.length)
       pageController.nextPage(
-          duration: Duration(seconds: 2), curve: Curves.easeIn);
+          duration: Duration(seconds: 1), curve: Curves.easeIn);
+  }
+
+  void onSelected(bool value) {
+    if (value) controller.correctAnswers++;
+    nextPage();
   }
 
   @override
@@ -60,7 +67,7 @@ class _ChallengePageState extends State<ChallengePage> {
           ...widget.questions
               .map((question) => QuizWidget(
                     question: question,
-                    onChange: nextPage,
+                    onSelected: onSelected,
                   ))
               .toList(),
         ],
@@ -68,32 +75,41 @@ class _ChallengePageState extends State<ChallengePage> {
       bottomNavigationBar: SafeArea(
         bottom: true,
         child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: ValueListenableBuilder<int>(
-                valueListenable: controller.currentPageNotifier,
-                builder: (context, value, _) => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        if (value < widget.questions.length)
-                          Expanded(
-                            child: NextButtonWidget.grey(
-                              label: 'Pular',
-                              onTap: nextPage,
+          padding: EdgeInsets.symmetric(horizontal: 10),
+          child: ValueListenableBuilder<int>(
+            valueListenable: controller.currentPageNotifier,
+            builder: (context, value, _) => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                if (value < widget.questions.length)
+                  Expanded(
+                    child: NextButtonWidget.grey(
+                      label: 'Pular',
+                      onTap: nextPage,
+                    ),
+                  ),
+                if (value == widget.questions.length)
+                  Expanded(
+                    child: NextButtonWidget.green(
+                      label: 'Confirmar',
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ResultPage(
+                              result: controller.correctAnswers,
+                              title: widget.title,
+                              length: widget.questions.length,
                             ),
                           ),
-                        if (value == widget.questions.length)
-                          Expanded(
-                              child: NextButtonWidget.green(
-                                  label: 'Confirmar',
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ResultPage()));
-                                  })),
-                      ],
-                    ))),
+                        );
+                      },
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
